@@ -1,0 +1,69 @@
+//Fahrenheit
+
+// Converts degrees C to degrees F by collecting info at command line
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(int argc, string argv[])
+{
+    // Get celsius from the starting argument
+    float celsius = atof(argv[1]);
+
+    // Convert to fahrenheit; no float errors b/c celsius is a float
+    float fahrenheit = (celsius * 9) / 5 + 32;
+    printf("F: %.1f\n", fahrenheit);
+}
+
+
+//Pennies
+
+// Calculates how many pennies a user would get if their change doubles each day using command line information
+
+#include <cs50.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+// Defined constants
+#define MAX_DAYS 31
+#define MIN_DAYS 28
+
+int main(int argc, string argv[])
+{
+    int pennies;
+    int days;
+    
+    if (argc != 3)
+    {
+        printf("Requires <Days> and <Money>");
+        return 1;
+    } 
+    days = atoi(argv[1]);
+    
+    if (days < MIN_DAYS || days > MAX_DAYS)
+    {
+        return 1;
+    }
+    
+    // Get a number of pennies
+    pennies = atoi(argv[2]);
+    
+    if (pennies <= 0)
+    {
+        return 1;
+    }
+
+
+    // Relatively few pennies required to get out of bounds of int
+    long long total = pennies;
+
+    // Add double the amount of pennies of the previous day each day
+    for (int i = 1; i < days; i++)
+    {
+        total += pennies * pow(2, i);
+    }
+
+    // Output the total as dollars and cents only
+    printf("$%.2f\n", ((double) total) / 100);
+}
